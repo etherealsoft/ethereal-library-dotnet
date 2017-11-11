@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 
 namespace Ethereal.Library.Test
@@ -8,13 +9,16 @@ namespace Ethereal.Library.Test
     public class InvariantTest
     {
         private const string PARAMETER_NAME = "foo";
+        private readonly DateTime _currentDate = new DateTime(2017, 11, 6);
 
+        private Mock<ISystemTime> _systemTime;
         private Invariant _target;
 
         [SetUp]
         public void Setup()
         {
-            _target = new Invariant();
+            _systemTime = new Mock<ISystemTime>();
+            _target = new Invariant(_systemTime.Object);
         }
 
         #region HasMaxLength
@@ -191,18 +195,18 @@ namespace Ethereal.Library.Test
         public void IsAtLeast_When_Argument_Is_Less_Than_Min_Should_Throw_ArgumentException()
         {
             const int MIN_VALUE = 1;
-            
+
             var ex = Assert.Throws<ArgumentException>(() => _target.IsAtLeast(0, MIN_VALUE, PARAMETER_NAME));
-            
+
             Assert.AreEqual($"{PARAMETER_NAME} must not be less than {MIN_VALUE}.", ex.Message);
         }
-        
+
         [Test]
         public void IsAtLeast_When_Argument_Is_Equal_To_Min_Should_Not_Throw()
         {
             Assert.DoesNotThrow(() => _target.IsAtLeast(0, 0, PARAMETER_NAME));
         }
-        
+
         [Test]
         public void IsAtLeast_When_Argument_Exceeds_Min_Should_Not_Throw()
         {
@@ -217,23 +221,265 @@ namespace Ethereal.Library.Test
         public void IsAtMost_When_Argument_Exceeds_Max_Should_Throw_ArgumentException()
         {
             const int MAX_VALUE = 0;
-            
+
             var ex = Assert.Throws<ArgumentException>(() => _target.IsAtMost(1, MAX_VALUE, PARAMETER_NAME));
-            
+
             Assert.AreEqual($"{PARAMETER_NAME} must not be greater than {MAX_VALUE}.", ex.Message);
         }
-        
+
         [Test]
         public void IsAtMost_When_Argument_Is_Equal_To_Max_Should_Not_Throw()
         {
             Assert.DoesNotThrow(() => _target.IsAtMost(0, 0, PARAMETER_NAME));
         }
-        
+
         [Test]
         public void IsAtMost_When_Argument_Is_Less_Than_Max_Should_Not_Throw()
         {
             Assert.DoesNotThrow(() => _target.IsAtMost(0, 1, PARAMETER_NAME));
         }
+
+        #endregion
+
+        #region IsInInterval
+
+        [Test]
+        public void IsInInterval_When_Max_Is_Less_Than_Min_Should_Throw_InvalidOperationException()
+        {
+            var ex = Assert.Throws<InvalidOperationException>(() => _target.IsInInterval(0, 1, 0, PARAMETER_NAME));
+
+            Assert.AreEqual("Max must not be less than min.", ex.Message);
+        }
+
+        [Test]
+        public void IsInInterval_When_Max_Is_Equal_To_Min_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsInInterval(0, 0, 0, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsInInterval_When_Max_Exceeds_Than_Min_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsInInterval(0, 0, 1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsInInterval_When_Argument_Is_Less_Than_Min_Should_Throw_ArgumentException()
+        {
+            const int MIN_VALUE = 0;
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsInInterval(-1, MIN_VALUE, MIN_VALUE + 1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be less than {MIN_VALUE}.", ex.Message);
+        }
+
+        [Test]
+        public void IsInInterval_When_Argument_Is_Equal_To_Min_Should_Not_Throw()
+        {
+            const int MIN_VALUE = 0;
+
+            Assert.DoesNotThrow(() => _target.IsInInterval(MIN_VALUE, MIN_VALUE, MIN_VALUE + 1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsInInterval_When_Argument_Exceeds_Min_And_Is_Less_Than_Max_Should_Not_Throw()
+        {
+            const int MIN_VALUE = 0;
+
+            Assert.DoesNotThrow(() => _target.IsInInterval(MIN_VALUE + 1, MIN_VALUE, MIN_VALUE + 2, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsInInterval_When_Argument_Is_Equal_To_Max_Should_Not_Throw()
+        {
+            const int MAX_VALUE = 2;
+
+            Assert.DoesNotThrow(() => _target.IsInInterval(MAX_VALUE, MAX_VALUE - 1, MAX_VALUE, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsInInterval_When_Argument_Exceeds_Max_Should_Throw_ArgumentException()
+        {
+            const int MAX_VALUE = 2;
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsInInterval(MAX_VALUE + 1, MAX_VALUE - 1, MAX_VALUE, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be greater than {MAX_VALUE}.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotEmpty<Guid>
+
+        [Test]
+        public void IsNotEmptyOfGuid_When_Argument_Is_Empty_Guid_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotEmpty(Guid.Empty, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be the empty guid.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotEmptyOfGuid_When_Argument_Is_Not_Empty_Guid_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(
+                () => _target.IsNotEmpty(new Guid("B51ADF9B-077C-42F3-91D0-5E97E6B25B9D"), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotEmpty<string>
+
+        [Test]
+        public void IsNotEmptyOfString_When_Argument_Is_Empty_String_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotEmpty(string.Empty, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotEmptyOfString_When_Argument_Is_Not_Empty_String_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotEmpty("foo", PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotEmptyOfString_When_Argument_Is_Null_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotEmpty(null, PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotInFuture
+
+        [Test]
+        public void IsNotInFuture_When_Argument_Exceeds_Current_DateTime_Should_Throw_ArgumentException()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotInFuture(_currentDate.AddTicks(1), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be in the future.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotInFuture_When_Argument_Is_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInFuture(_currentDate, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotInFuture_When_Argument_Is_Earlier_Than_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInFuture(_currentDate.AddTicks(-1), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotInFutureUtc
+
+        [Test]
+        public void IsNotInFutureUtc_When_Argument_Exceeds_Current_DateTime_Should_Throw_ArgumentException()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotInFutureUtc(_currentDate.AddTicks(1), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be in the future.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotInFutureUtc_When_Argument_Is_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInFutureUtc(_currentDate, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotInFutureUtc_When_Argument_Is_Earlier_Than_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInFutureUtc(_currentDate.AddTicks(-1), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotInPast
+
+        [Test]
+        public void IsNotInPast_When_Argument_Is_Earlier_Then_Current_DateTime_Should_Throw_ArgumentException()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotInPast(_currentDate.AddTicks(-1), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be in the past.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotInPast_When_Argument_Is_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInPast(_currentDate, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotInPast_When_Argument_Exceeds_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.Now).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInPast(_currentDate.AddTicks(1), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotInPastUtc
+
+        [Test]
+        public void IsNotInPastUtc_When_Argument_Is_Earlier_Then_Current_DateTime_Should_Throw_ArgumentException()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotInPastUtc(_currentDate.AddTicks(-1), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be in the past.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotInPastUtc_When_Argument_Is_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInPastUtc(_currentDate, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotInPastUtc_When_Argument_Exceeds_Current_DateTime_Should_Not_Throw()
+        {
+            _systemTime.Setup(s => s.UtcNow).Returns(() => _currentDate);
+
+            Assert.DoesNotThrow(() => _target.IsNotInPastUtc(_currentDate.AddTicks(1), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region
+
 
         #endregion
     }
