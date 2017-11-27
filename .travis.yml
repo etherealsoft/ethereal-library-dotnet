@@ -2,7 +2,6 @@ language: csharp
 mono: none
 dotnet: 2.0.3
 dist: trusty
-solution: Ethereal/Ethereal.sln
 script:
- - dotnet restore
- - dotnet test
+ - dotnet restore Ethereal/Ethereal.sln
+ - dotnet test Ethereal/Ethereal.sln
