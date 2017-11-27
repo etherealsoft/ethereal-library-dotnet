@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 
@@ -478,8 +480,444 @@ namespace Ethereal.Library.Test
 
         #endregion
 
-        #region
+        #region IsNotNegative<int>
 
+        [Test]
+        public void IsNotNegativeOfInt_When_Argument_Is_Zero_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegative(0, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOfInt_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegative(-1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegative<long>
+
+        [Test]
+        public void IsNotNegativeOfLong_When_Argument_Is_Zero_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegative((long) 0, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOfLong_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegative((long) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegative<float>
+
+        [Test]
+        public void IsNotNegativeOfFloat_When_Argument_Is_Zero_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegative((float) 0, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOfFloat_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegative((float) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegative<decimal>
+
+        [Test]
+        public void IsNotNegativeOfDecimal_When_Argument_Is_Zero_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegative((decimal) 0, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOfDecimal_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegative((decimal) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegative<TimeSpan>
+
+        [Test]
+        public void IsNotNegativeOfTimeSpan_When_Argument_Is_Zero_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegative(TimeSpan.Zero, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOfTimeSpan_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotNegative(TimeSpan.FromTicks(1).Negate(), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegativeOrZero<int>
+
+        [Test]
+        public void IsNotNegativeOrZeroOfInt_When_Argument_Is_One_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegativeOrZero(1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfInt_When_Argument_Is_Zero_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero(0, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfInt_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero(-1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegativeOrZero<long>
+
+        [Test]
+        public void IsNotNegativeOrZeroOfLong_When_Argument_Is_One_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegativeOrZero((long) 1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfLong_When_Argument_Is_Zero_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((long) 0, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfLong_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((long) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegativeOrZero<float>
+
+        [Test]
+        public void IsNotNegativeOrZeroOfFloat_When_Argument_Is_One_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegativeOrZero((float) 1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfFloat_When_Argument_Is_Zero_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((float) 0, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfFloat_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((float) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegativeOrZero<decimal>
+
+        [Test]
+        public void IsNotNegativeOrZeroOfDecimal_When_Argument_Is_One_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegativeOrZero((decimal) 1, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfDecimal_When_Argument_Is_Zero_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((decimal) 0, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfDecimal_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero((decimal) -1, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNegativeOrZero<TimeSpan>
+
+        [Test]
+        public void IsNotNegativeOrZeroOfTimeSpan_When_Argument_Is_One_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNegativeOrZero(TimeSpan.FromTicks(1), PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfTimeSpan_When_Argument_Is_Zero_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNegativeOrZero(TimeSpan.Zero, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNegativeOrZeroOfTimeSpan_When_Argument_Is_Negative_One_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotNegativeOrZero(TimeSpan.FromTicks(1).Negate(), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotNull<object>
+
+        [Test]
+        public void IsNotNullOfObject_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => _target.IsNotNull((object) null, PARAMETER_NAME));
+
+            Assert.AreEqual(PARAMETER_NAME, ex.ParamName);
+        }
+
+        [Test]
+        public void IsNotNullOfObject_When_Argument_Is_Not_Null_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNull(new Object(), PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotNull<T>
+
+        [Test]
+        public void IsNotNullOfT_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => _target.IsNotNull((string) null, PARAMETER_NAME));
+
+            Assert.AreEqual(PARAMETER_NAME, ex.ParamName);
+        }
+
+        [Test]
+        public void IsNotNullOfT_When_Argument_Is_Not_Null_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNull(string.Empty, PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotNullOrEmpty<string>
+
+        [Test]
+        public void IsNotNullOrEmptyOfString_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => _target.IsNotNullOrEmpty((string) null, PARAMETER_NAME));
+
+            Assert.AreEqual(PARAMETER_NAME, ex.ParamName);
+        }
+
+        [Test]
+        public void IsNotNullOrEmptyOfString_When_Argument_Is_Empty_String_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNullOrEmpty(string.Empty, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be an empty string.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNullOrEmptyOfString_When_Argument_Is_Whitespace_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNullOrEmpty(" ", PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotNullOrEmptyOfString_When_Argument_Is_Not_Null_Or_Empty_Or_Whitespace_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNullOrEmpty("foo", PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotNullOrEmpty<IEnumerable<T>>
+
+        [Test]
+        public void IsNotNullOrEmptyOfIEnumerable_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => _target.IsNotNullOrEmpty((IEnumerable<int>) null, PARAMETER_NAME));
+
+            Assert.AreEqual(PARAMETER_NAME, ex.ParamName);
+        }
+
+        [Test]
+        public void IsNotNullOrEmptyOfIEnumerable_When_Argument_Is_Empty_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotNullOrEmpty(Enumerable.Empty<int>(), PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNullOrEmptyOfIEnumerable_When_Argument_Is_Not_Empty_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotNullOrEmpty(new List<int> { 1 }, PARAMETER_NAME));
+        }
+
+        #endregion
+
+        #region IsNotNullOrWhitespace
+
+        [Test]
+        public void IsNotNullOrWhitespace_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => _target.IsNotNullOrWhitespace(null, PARAMETER_NAME));
+
+            Assert.AreEqual(PARAMETER_NAME, ex.ParamName);
+        }
+
+        [Test]
+        public void IsNotNullOrWhitespace_When_Argument_Is_Empty_String_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(
+                () => _target.IsNotNullOrWhitespace(string.Empty, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotNullOrWhitespace_When_Argument_Is_Whitespace_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotNullOrWhitespace(" ", PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsNotWhitespace
+
+        [Test]
+        public void IsNotWhitespace_When_Argument_Is_Null_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsNotWhitespace(null, PARAMETER_NAME));
+        }
+
+        [Test]
+        public void IsNotWhitespace_When_Argument_Is_Empty_String_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotWhitespace(string.Empty, PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+        }
+
+        [Test]
+        public void IsNotWhitespace_When_Argument_Is_Whitespace_Should_Throw_ArgumentException()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => _target.IsNotWhitespace(" ", PARAMETER_NAME));
+
+            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+        }
+
+        #endregion
+
+        #region IsValidModel
+
+        [Test]
+        public void IsValidModel_When_Argument_Is_Null_Should_Throw_ArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _target.IsValidModel<object>(null));
+        }
+
+        [Test]
+        public void IsValidModel_When_Argument_Is_Not_Valid_Should_Throw_ValidationException()
+        {
+            Assert.Throws<ValidationException>(() => _target.IsValidModel(new TestModel()));
+        }
+
+        [Test]
+        public void IsValidModel_When_Model_Is_Valid_Should_Not_Throw()
+        {
+            Assert.DoesNotThrow(() => _target.IsValidModel(new TestModel { RequiredProperty = 1 }));
+        }
+
+        #endregion
+
+        #region IsValidProperty
+
+        [Test]
+        public void IsValidProperty_When_Property_Is_Null_Should_Throw_ValidationException()
+        {
+            var model = new TestModel();
+            Assert.Throws<ValidationException>(
+                () => _target.IsValidProperty(model, model.RequiredProperty, nameof(model.RequiredProperty)));
+        }
+
+        [Test]
+        public void IsValidProperty_When_Property_Is_Invalid_Should_Throw_ValidationException()
+        {
+            var model = new TestModel { RequiredProperty = 2 };
+            Assert.Throws<ValidationException>(
+                () => _target.IsValidProperty(model, model.RequiredProperty, nameof(model.RequiredProperty)));
+        }
+
+        #endregion
+
+        #region MatchesRegex
+
+        [Test]
+        public void MatchesRegex_When_Argument_Is_Null_Should_Throw_NullReferenceException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _target.MatchesRegex(null, @"\s+", PARAMETER_NAME));
+        }
+
+        [Test]
+        public void MatchesRegex_When_Argument_Does_Not_Match_Should_Throw()
+        {
+            var expression = @"\s+";
+            var ex = Assert.Throws<ArgumentException>(() => _target.MatchesRegex("a", expression, PARAMETER_NAME));
+            Assert.AreEqual($"{PARAMETER_NAME} must match regular expression {expression}.", ex.Message);
+        }
+
+        [Test]
+        public void MatchesRegex_When_Argument_Matches_Should_Not_Throw()
+        {
+            var expression = @"\s+";
+            Assert.DoesNotThrow(() => _target.MatchesRegex(" ", expression, PARAMETER_NAME));
+        }
 
         #endregion
     }

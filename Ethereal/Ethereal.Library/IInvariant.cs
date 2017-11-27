@@ -65,7 +65,7 @@ namespace Ethereal.Library
 
         void IsValidModel<T>(T argument);
 
-        void IsValidProperty<T>(T argument);
+        void IsValidProperty<T>(T argument, object value, string name);
 
         void MatchesRegex(string argument, string expression, string name);
     }

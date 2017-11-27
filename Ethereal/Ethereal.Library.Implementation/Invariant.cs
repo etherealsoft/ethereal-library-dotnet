@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
-using Ethereal.Library.Extensions;
+using System.Text.RegularExpressions;
 
 namespace Ethereal.Library
 {
@@ -17,7 +17,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMaxLength(string argument, int maxLength, string name = "parameter")
+        public void HasMaxLength(string argument, int maxLength, string name)
         {
             if (maxLength < 0)
             {
@@ -31,7 +31,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMaxLength<T>(IEnumerable<T> argument, int maxLength, string name = "parameter")
+        public void HasMaxLength<T>(IEnumerable<T> argument, int maxLength, string name)
         {
             if (maxLength < 0)
             {
@@ -45,7 +45,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMinLength(string argument, int minLength, string name = "parameter")
+        public void HasMinLength(string argument, int minLength, string name)
         {
             if (minLength < 0)
             {
@@ -59,7 +59,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMinLength<T>(IEnumerable<T> argument, int minLength, string name = "parameter")
+        public void HasMinLength<T>(IEnumerable<T> argument, int minLength, string name)
         {
             if (minLength < 0)
             {
@@ -73,7 +73,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsAtLeast<T>(T argument, T min, string name = "parameter") where T : IComparable
+        public void IsAtLeast<T>(T argument, T min, string name) where T : IComparable
         {
             if (argument.CompareTo(min) < 0)
             {
@@ -82,7 +82,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsAtMost<T>(T argument, T max, string name = "parameter") where T : IComparable
+        public void IsAtMost<T>(T argument, T max, string name) where T : IComparable
         {
             if (argument.CompareTo(max) > 0)
             {
@@ -91,7 +91,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsInInterval<T>(T argument, T min, T max, string name = "parameter") where T : IComparable
+        public void IsInInterval<T>(T argument, T min, T max, string name) where T : IComparable
         {
             if (max.CompareTo(min) < 0)
             {
@@ -103,7 +103,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotEmpty(Guid argument, string name = "parameter")
+        public void IsNotEmpty(Guid argument, string name)
         {
             if (argument == Guid.Empty)
             {
@@ -112,7 +112,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotEmpty(string argument, string name = "parameter")
+        public void IsNotEmpty(string argument, string name)
         {
             if (argument == string.Empty)
             {
@@ -121,7 +121,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotInFuture(DateTime argument, string name = "parameter")
+        public void IsNotInFuture(DateTime argument, string name)
         {
             if (argument > _systemTime.Now())
             {
@@ -130,7 +130,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotInFutureUtc(DateTime argument, string name = "parameter")
+        public void IsNotInFutureUtc(DateTime argument, string name)
         {
             if (argument > _systemTime.UtcNow())
             {
@@ -139,7 +139,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotInPast(DateTime argument, string name = "parameter")
+        public void IsNotInPast(DateTime argument, string name)
         {
             if (argument < _systemTime.Now())
             {
@@ -148,7 +148,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotInPastUtc(DateTime argument, string name = "parameter")
+        public void IsNotInPastUtc(DateTime argument, string name)
         {
             if (argument < _systemTime.UtcNow())
             {
@@ -157,7 +157,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(int argument, string name = "parameter")
+        public void IsNotNegative(int argument, string name)
         {
             if (argument < 0)
             {
@@ -166,7 +166,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(long argument, string name = "parameter")
+        public void IsNotNegative(long argument, string name)
         {
             if (argument < 0)
             {
@@ -175,7 +175,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(float argument, string name = "parameter")
+        public void IsNotNegative(float argument, string name)
         {
             if (argument < 0)
             {
@@ -184,7 +184,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(decimal argument, string name = "parameter")
+        public void IsNotNegative(decimal argument, string name)
         {
             if (argument < 0)
             {
@@ -193,16 +193,16 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(TimeSpan argument, string name = "parameter")
+        public void IsNotNegative(TimeSpan argument, string name)
         {
-            if (argument == TimeSpan.Zero)
+            if (argument < TimeSpan.Zero)
             {
                 throw new ArgumentException($"{name} must not have a negative value.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(int argument, string name = "parameter")
+        public void IsNotNegativeOrZero(int argument, string name)
         {
             if (argument <= 0)
             {
@@ -211,7 +211,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(long argument, string name = "parameter")
+        public void IsNotNegativeOrZero(long argument, string name)
         {
             if (argument <= 0)
             {
@@ -220,7 +220,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(float argument, string name = "parameter")
+        public void IsNotNegativeOrZero(float argument, string name)
         {
             if (argument <= 0)
             {
@@ -229,7 +229,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(decimal argument, string name = "parameter")
+        public void IsNotNegativeOrZero(decimal argument, string name)
         {
             if (argument <= 0)
             {
@@ -238,16 +238,16 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(TimeSpan argument, string name = "parameter")
+        public void IsNotNegativeOrZero(TimeSpan argument, string name)
         {
             if (argument <= TimeSpan.Zero)
             {
-                throw new ArgumentException($"{name} must not have a negative or zero value..");
+                throw new ArgumentException($"{name} must not have a negative or zero value.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotNull(object argument, string name = "parameter")
+        public void IsNotNull(object argument, string name)
         {
             if (argument == null)
             {
@@ -256,7 +256,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNull<T>(T argument, string name = "parameter")
+        public void IsNotNull<T>(T argument, string name)
         {
             if (argument == null)
             {
@@ -265,42 +265,42 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrEmpty(string argument, string name = "parameter")
+        public void IsNotNullOrEmpty(string argument, string name)
         {
             IsNotNull(argument, name);
 
             if (string.IsNullOrEmpty(argument))
             {
-                throw new ArgumentException($"{name} must not be null or empty.");
+                throw new ArgumentException($"{name} must not be an empty string.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrEmpty<T>(IEnumerable<T> argument, string name = "parameter")
+        public void IsNotNullOrEmpty<T>(IEnumerable<T> argument, string name)
         {
             IsNotNull(argument, name);
 
             if (!argument.Any())
             {
-                throw new ArgumentException($"{name} must not be null or empty.");
+                throw new ArgumentException($"{name} must not be empty.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrWhitespace(string argument, string name = "parameter")
+        public void IsNotNullOrWhitespace(string argument, string name)
         {
             IsNotNull(argument, name);
 
             if (string.IsNullOrWhiteSpace(argument))
             {
-                throw new ArgumentException($"{name} must not be null or whitespace.");
+                throw new ArgumentException($"{name} must not be empty or whitespace.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotWhitespace(string argument, string name = "parameter")
+        public void IsNotWhitespace(string argument, string name)
         {
-            if (string.IsNullOrWhiteSpace(argument ?? string.Empty))
+            if (argument != null && string.IsNullOrWhiteSpace(argument))
             {
                 throw new ArgumentException($"{name} must not be empty or whitespace.");
             }
@@ -313,15 +313,14 @@ namespace Ethereal.Library
             Validator.ValidateObject(argument, context, true);
         }
 
-        [DebuggerStepThrough]
-        public void IsValidProperty<T>(T argument)
+        public void IsValidProperty<T>(T argument, object value, string name)
         {
-            var context = new ValidationContext(argument, null, null);
-            Validator.ValidateProperty(argument, context, true);
+            var context = new ValidationContext(argument, null, null) { MemberName = name };
+            Validator.ValidateProperty(value, context);
         }
 
         [DebuggerStepThrough]
-        public void MatchesRegex(string argument, string expression, string name = "parameter")
+        public void MatchesRegex(string argument, string expression, string name)
         {
             IsNotNull(argument, name);
 
