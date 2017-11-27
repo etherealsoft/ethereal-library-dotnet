@@ -4,4 +4,4 @@ dotnet: 2.0.3
 dist: trusty
 script:
  - dotnet restore Ethereal/Ethereal.sln
- - dotnet test Ethereal/Ethereal.sln
+ - dotnet test Ethereal/Ethereal.Library.Implementation.Test/Ethereal.Library.Implementation.Test.csproj
