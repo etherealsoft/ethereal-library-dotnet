@@ -1,0 +1,24 @@
+* text=auto
+
+# web files
+*.html  text diff=html
+*.less  text
+*.css   text
+*.js    text
+*.json  text
+
+# images should be treated as binary (binary is a macro for -text -diff)
+*.ai    binary
+*.gif   binary
+*.ico   binary
+*.jpeg  binary
+*.jpg   binary
+*.png   binary
+*.psd   binary
+*.sdf   binary
+*.svg   binary
+
+# font files
+*.otf   binary
+*.ttf   binary
+*.woff  binary
