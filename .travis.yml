@@ -2,6 +2,10 @@ language: csharp
 mono: none
 dotnet: 2.0.3
 dist: trusty
-script:
- - dotnet restore Ethereal/Ethereal.sln
- - dotnet test Ethereal/Ethereal.Library.Implementation.Test/Ethereal.Library.Implementation.Test.csproj
+script: script/build.sh
+deploy:
+  skip_cleanup: true
+  - provider: script
+    script: script/deploy.sh $NUGET_API_KEY
+    on:
+      branch: master

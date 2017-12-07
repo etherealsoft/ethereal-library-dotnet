@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>1.0.0-rc1</PackageVersion>
+    <Authors>Ethereal Software, LLC</Authors>
+    <Owners>Ethereal Software, LLC</Owners>
+    <Description>Common .NET component library DI modules for Ethereal Software, LLC.</Description>
+    <PackageId>Ethereal.Library.DependencyInjection</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="autofac" Version="4.6.2" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
   </ItemGroup>
 
   <ItemGroup>
