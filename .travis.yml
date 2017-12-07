@@ -4,8 +4,8 @@ dotnet: 2.0.3
 dist: trusty
 script: script/build.sh
 deploy:
-  skip_cleanup: true
   - provider: script
     script: script/deploy.sh $NUGET_API_KEY
+    skip_cleanup: true
     on:
       branch: master
