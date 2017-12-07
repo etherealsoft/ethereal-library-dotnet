@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+dotnet: 2.0.3
+dist: trusty
+script: scripts/build.sh
+deploy:
+  - provider: script
+    script: scripts/deploy.sh $NUGET_API_KEY
+    skip_cleanup: true
+    on:
+      branch: master
