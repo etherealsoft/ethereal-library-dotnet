@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.Implementa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.DependencyInjection", "Ethereal.Library.DependencyInjection\Ethereal.Library.DependencyInjection.csproj", "{A157A499-2943-4266-8F3F-B6885B2678C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.Test", "Ethereal.Library.Test\Ethereal.Library.Test.csproj", "{1A1A6268-91F1-4C7B-A665-3A94F49CD353}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,17 @@ Global
 		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x64.Build.0 = Release|x64
 		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x86.ActiveCfg = Release|x86
 		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x86.Build.0 = Release|x86
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|x64.Build.0 = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|x64.ActiveCfg = Release|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|x64.Build.0 = Release|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

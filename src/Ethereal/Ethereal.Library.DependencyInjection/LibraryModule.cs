@@ -6,8 +6,6 @@ namespace Ethereal.Library.DependencyInjection
   {
       protected override void Load(ContainerBuilder builder)
       {
-          builder.RegisterType<SystemTime>().As<ISystemTime>().SingleInstance();
-          builder.RegisterType<Invariant>().As<IInvariant>().SingleInstance();
       }
   }
 }

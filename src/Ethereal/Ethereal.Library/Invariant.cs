@@ -7,17 +7,10 @@ using System.Text.RegularExpressions;
 
 namespace Ethereal.Library
 {
-    public class Invariant : IInvariant
+    public static class Invariant
     {
-        private readonly ISystemTime _systemTime;
-
-        public Invariant(ISystemTime systemTime)
-        {
-            _systemTime = systemTime;
-        }
-
         [DebuggerStepThrough]
-        public void HasMaxLength(string argument, int maxLength, string name)
+        public static void HasMaxLength(string argument, int maxLength, string name)
         {
             if (maxLength < 0)
             {
@@ -31,7 +24,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMaxLength<T>(IEnumerable<T> argument, int maxLength, string name)
+        public static void HasMaxLength<T>(IEnumerable<T> argument, int maxLength, string name)
         {
             if (maxLength < 0)
             {
@@ -45,7 +38,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMinLength(string argument, int minLength, string name)
+        public static void HasMinLength(string argument, int minLength, string name)
         {
             if (minLength < 0)
             {
@@ -59,7 +52,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void HasMinLength<T>(IEnumerable<T> argument, int minLength, string name)
+        public static void HasMinLength<T>(IEnumerable<T> argument, int minLength, string name)
         {
             if (minLength < 0)
             {
@@ -73,7 +66,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsAtLeast<T>(T argument, T min, string name) where T : IComparable
+        public static void IsAtLeast<T>(T argument, T min, string name) where T : IComparable
         {
             if (argument.CompareTo(min) < 0)
             {
@@ -82,7 +75,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsAtMost<T>(T argument, T max, string name) where T : IComparable
+        public static void IsAtMost<T>(T argument, T max, string name) where T : IComparable
         {
             if (argument.CompareTo(max) > 0)
             {
@@ -91,7 +84,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsInInterval<T>(T argument, T min, T max, string name) where T : IComparable
+        public static void IsInInterval<T>(T argument, T min, T max, string name) where T : IComparable
         {
             if (max.CompareTo(min) < 0)
             {
@@ -103,7 +96,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotEmpty(Guid argument, string name)
+        public static void IsNotEmpty(Guid argument, string name)
         {
             if (argument == Guid.Empty)
             {
@@ -112,7 +105,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotEmpty(string argument, string name)
+        public static void IsNotEmpty(string argument, string name)
         {
             if (argument == string.Empty)
             {
@@ -121,43 +114,43 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotInFuture(DateTime argument, string name)
+        public static void IsNotInFuture(DateTime argument, string name)
         {
-            if (argument > _systemTime.Now())
+            if (argument > TimeProvider.Current.Now)
             {
                 throw new ArgumentException($"{name} must not be in the future.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotInFutureUtc(DateTime argument, string name)
+        public static void IsNotInFutureUtc(DateTime argument, string name)
         {
-            if (argument > _systemTime.UtcNow())
+            if (argument > TimeProvider.Current.UtcNow)
             {
                 throw new ArgumentException($"{name} must not be in the future.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotInPast(DateTime argument, string name)
+        public static void IsNotInPast(DateTime argument, string name)
         {
-            if (argument < _systemTime.Now())
+            if (argument < TimeProvider.Current.Now)
             {
                 throw new ArgumentException($"{name} must not be in the past.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotInPastUtc(DateTime argument, string name)
+        public static void IsNotInPastUtc(DateTime argument, string name)
         {
-            if (argument < _systemTime.UtcNow())
+            if (argument < TimeProvider.Current.UtcNow)
             {
                 throw new ArgumentException($"{name} must not be in the past.");
             }
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(int argument, string name)
+        public static void IsNotNegative(int argument, string name)
         {
             if (argument < 0)
             {
@@ -166,7 +159,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(long argument, string name)
+        public static void IsNotNegative(long argument, string name)
         {
             if (argument < 0)
             {
@@ -175,7 +168,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(float argument, string name)
+        public static void IsNotNegative(float argument, string name)
         {
             if (argument < 0)
             {
@@ -184,7 +177,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(decimal argument, string name)
+        public static void IsNotNegative(decimal argument, string name)
         {
             if (argument < 0)
             {
@@ -193,7 +186,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegative(TimeSpan argument, string name)
+        public static void IsNotNegative(TimeSpan argument, string name)
         {
             if (argument < TimeSpan.Zero)
             {
@@ -202,7 +195,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(int argument, string name)
+        public static void IsNotNegativeOrZero(int argument, string name)
         {
             if (argument <= 0)
             {
@@ -211,7 +204,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(long argument, string name)
+        public static void IsNotNegativeOrZero(long argument, string name)
         {
             if (argument <= 0)
             {
@@ -220,7 +213,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(float argument, string name)
+        public static void IsNotNegativeOrZero(float argument, string name)
         {
             if (argument <= 0)
             {
@@ -229,7 +222,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(decimal argument, string name)
+        public static void IsNotNegativeOrZero(decimal argument, string name)
         {
             if (argument <= 0)
             {
@@ -238,7 +231,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNegativeOrZero(TimeSpan argument, string name)
+        public static void IsNotNegativeOrZero(TimeSpan argument, string name)
         {
             if (argument <= TimeSpan.Zero)
             {
@@ -247,7 +240,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNull(object argument, string name)
+        public static void IsNotNull(object argument, string name)
         {
             if (argument == null)
             {
@@ -256,7 +249,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNull<T>(T argument, string name)
+        public static void IsNotNull<T>(T argument, string name)
         {
             if (argument == null)
             {
@@ -265,7 +258,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrEmpty(string argument, string name)
+        public static void IsNotNullOrEmpty(string argument, string name)
         {
             IsNotNull(argument, name);
 
@@ -276,7 +269,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrEmpty<T>(IEnumerable<T> argument, string name)
+        public static void IsNotNullOrEmpty<T>(IEnumerable<T> argument, string name)
         {
             IsNotNull(argument, name);
 
@@ -287,7 +280,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotNullOrWhitespace(string argument, string name)
+        public static void IsNotNullOrWhitespace(string argument, string name)
         {
             IsNotNull(argument, name);
 
@@ -298,7 +291,7 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsNotWhitespace(string argument, string name)
+        public static void IsNotWhitespace(string argument, string name)
         {
             if (argument != null && string.IsNullOrWhiteSpace(argument))
             {
@@ -307,20 +300,20 @@ namespace Ethereal.Library
         }
 
         [DebuggerStepThrough]
-        public void IsValidModel<T>(T argument)
+        public static void IsValidModel<T>(T argument)
         {
             var context = new ValidationContext(argument, null, null);
             Validator.ValidateObject(argument, context, true);
         }
 
-        public void IsValidProperty<T>(T argument, object value, string name)
+        public static void IsValidProperty<T>(T argument, object value, string name)
         {
             var context = new ValidationContext(argument, null, null) { MemberName = name };
             Validator.ValidateProperty(value, context);
         }
 
         [DebuggerStepThrough]
-        public void MatchesRegex(string argument, string expression, string name)
+        public static void MatchesRegex(string argument, string expression, string name)
         {
             IsNotNull(argument, name);
 
