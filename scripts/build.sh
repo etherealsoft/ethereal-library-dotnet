@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -e
 
-dotnet clean src/Ethereal/Ethereal.sln -c Release
-dotnet restore src/Ethereal/Ethereal.sln
-dotnet build src/Ethereal/Ethereal.sln -c Release --no-restore
-dotnet test src/Ethereal/**/*.Test.csproj -c Release --no-build --no-restore
+cd src/Ethereal
+
+dotnet restore
+dotnet build -c Release --no-restore
+ls **/*.Test.csproj | xargs -L1 dotnet test -c Release --no-build --no-restore
