@@ -10,12 +10,20 @@ namespace Ethereal.Library.Extensions.Test
         #region AttributeEncode
 
         [Test]
+        public void AttributeEncode_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.AttributeEncode());
+        }
+
+        [Test]
         public void AttributeEncode_Should_Encode_Correctly()
         {
-            var input = "<&\"";
-            var expected = HttpUtility.HtmlAttributeEncode(input);
+            var target = "<&\"";
+            var expected = HttpUtility.HtmlAttributeEncode(target);
 
-            var actual = input.AttributeEncode();
+            var actual = target.AttributeEncode();
 
             Assert.AreEqual(expected, actual);
         }
@@ -25,12 +33,20 @@ namespace Ethereal.Library.Extensions.Test
         #region HtmlDecode
 
         [Test]
+        public void HtmlDecode_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.HtmlDecode());
+        }
+
+        [Test]
         public void HtmlDecode_Should_Decode_Correctly()
         {
-            var input = "&#x3C;&#x3E;&#x26;&#x22";
-            var expected = HttpUtility.HtmlDecode(input);
+            var target = "&#x3C;&#x3E;&#x26;&#x22";
+            var expected = HttpUtility.HtmlDecode(target);
 
-            var actual = input.HtmlDecode();
+            var actual = target.HtmlDecode();
 
             Assert.AreEqual(expected, actual);
         }
@@ -40,12 +56,20 @@ namespace Ethereal.Library.Extensions.Test
         #region HtmlEncode
 
         [Test]
+        public void HtmlEncode_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.HtmlEncode());
+        }
+
+        [Test]
         public void HtmlEncode_Should_Encode_Correctly()
         {
-            var input = "<>&\"";
-            var expected = HttpUtility.HtmlEncode(input);
+            var target = "<>&\"";
+            var expected = HttpUtility.HtmlEncode(target);
 
-            var actual = input.HtmlEncode();
+            var actual = target.HtmlEncode();
 
             Assert.AreEqual(expected, actual);
         }
@@ -55,12 +79,20 @@ namespace Ethereal.Library.Extensions.Test
         #region ToEnum
 
         [Test]
+        public void ToEnum_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.ToEnum<TestEnum>());
+        }
+
+        [Test]
         public void ToEnum_When_Match_Returns_Match()
         {
-            var input = "Foo";
+            var target = "Foo";
             var expected = TestEnum.Foo;
 
-            var actual = input.ToEnum(TestEnum.Unknown);
+            var actual = target.ToEnum<TestEnum>();
 
             Assert.AreEqual(expected, actual);
         }
@@ -68,37 +100,12 @@ namespace Ethereal.Library.Extensions.Test
         [Test]
         public void ToEnum_When_Match_Not_Found_Returns_Default()
         {
-            var input = "Bar";
+            var target = "Bar";
             var expected = TestEnum.Unknown;
 
-            var actual = input.ToEnum(expected);
+            var actual = target.ToEnum<TestEnum>();
 
             Assert.AreEqual(expected, actual);
-        }
-
-        #endregion
-
-        #region ToGuid
-
-        [Test]
-        public void ToGuid_When_String_Is_Shrunk_Guid_Should_Return_Expanded_Guid_From_Shrunk_Guid()
-        {
-            var expected = new Guid("E6F36EB3-5774-4CF5-BAA4-7883B519CDE5");
-            var input = expected.Shrink();
-
-            var actual = input.ToGuid();
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void ToGuid_When_String_Is_Not_Shrunk_Guid_Should_Return_Empty_Guid()
-        {
-            var input = "Foo";
-
-            var actual = input.ToGuid();
-
-            Assert.AreEqual(Guid.Empty, actual);
         }
 
         #endregion
@@ -106,12 +113,20 @@ namespace Ethereal.Library.Extensions.Test
         #region UrlDecode
 
         [Test]
+        public void UrlDecode_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.UrlDecode());
+        }
+
+        [Test]
         public void UrlDecode_Should_Decode_Correctly()
         {
-            var input = "%23%24%25%26%20";
-            var expected = HttpUtility.UrlDecode(input);
+            var target = "%23%24%25%26%20";
+            var expected = HttpUtility.UrlDecode(target);
 
-            var actual = input.UrlDecode();
+            var actual = target.UrlDecode();
 
             Assert.AreEqual(expected, actual);
         }
@@ -121,12 +136,20 @@ namespace Ethereal.Library.Extensions.Test
         #region UrlEncode
 
         [Test]
+        public void UrlEncode_When_Null_Should_Throw_ArgumentNullException()
+        {
+            string target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.UrlEncode());
+        }
+
+        [Test]
         public void UrlEncode_Should_Encode_Correctly()
         {
-            var input = "#$%& ";
-            var expected = HttpUtility.UrlEncode(input);
+            var target = "#$%& ";
+            var expected = HttpUtility.UrlEncode(target);
 
-            var actual = input.UrlEncode();
+            var actual = target.UrlEncode();
 
             Assert.AreEqual(expected, actual);
         }

@@ -8,70 +8,102 @@ namespace Ethereal.Library.Extensions
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Converts a string into an html attribute encoded string.
+        /// </summary>
+        /// <param name="source">The string to encode.</param>
+        /// <returns>The html attribute endcoded string.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static string AttributeEncode(this string self)
+        public static string AttributeEncode(this string source)
         {
-            return HttpUtility.HtmlAttributeEncode(self);
+            Invariant.IsNotNull(source, nameof(source));
+
+            return HttpUtility.HtmlAttributeEncode(source);
         }
 
+        /// <summary>
+        /// Decodes a string that was html encoded.
+        /// </summary>
+        /// <param name="source">The encoded string to decode.</param>
+        /// <returns>A decoded html string.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static string HtmlDecode(this string self)
+        public static string HtmlDecode(this string source)
         {
-            return HttpUtility.HtmlDecode(self);
+            Invariant.IsNotNull(source, nameof(source));
+
+            return HttpUtility.HtmlDecode(source);
         }
 
+        /// <summary>
+        /// Converts a string into an html encoded string.
+        /// </summary>
+        /// <param name="source">The string to encode.</param>
+        /// <returns>An encoded html string.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static string HtmlEncode(this string self)
+        public static string HtmlEncode(this string source)
         {
-            return HttpUtility.HtmlEncode(self);
+            Invariant.IsNotNull(source, nameof(source));
+
+            return HttpUtility.HtmlEncode(source);
         }
 
+        /// <summary>
+        /// Converts an enum valued string to its enum value.
+        /// </summary>
+        /// <param name="source">The string to be converted.</param>
+        /// <returns>The converted enum.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static T ToEnum<T>(this string self, T defaultValue) where T : struct, IComparable, IFormattable
+        public static T ToEnum<T>(this string source) where T : struct, IComparable, IFormattable
         {
-            var value = defaultValue;
+            Invariant.IsNotNull(source, nameof(source));
 
-            if (!string.IsNullOrWhiteSpace(self))
-            {
-                Enum.TryParse(self, true, out value);
-            }
+            Enum.TryParse<T>(source, true, out var value);
 
             return value;
         }
 
+        /// <summary>
+        /// Decodes a string that was url encoded.
+        /// </summary>
+        /// <param name="source">The string to decode.</param>
+        /// <returns>A decoded url string.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static Guid ToGuid(this string self)
+        public static string UrlDecode(this string source)
         {
-            var result = Guid.Empty;
+            Invariant.IsNotNull(source, nameof(source));
 
-            if (self != null && self.Length == 22)
-            {
-                var encoded = string.Concat(self.Replace("-", "+").Replace("_", "/"), "==");
-
-                try
-                {
-                    var base64 = Convert.FromBase64String(encoded);
-
-                    result = new Guid(base64);
-                }
-                catch (FormatException)
-                {
-                }
-            }
-
-            return result;
+            return HttpUtility.UrlDecode(source);
         }
 
+        /// <summary>
+        /// Converts a string into a url encoded string.
+        /// </summary>
+        /// <param name="source">The url string to encode.</param>
+        /// <returns>The encoded url string.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when <paramref name="source"/> is null.
+        /// </exception>
         [DebuggerStepThrough]
-        public static string UrlDecode(this string self)
+        public static string UrlEncode(this string source)
         {
-            return HttpUtility.UrlDecode(self);
-        }
+            Invariant.IsNotNull(source, nameof(source));
 
-        [DebuggerStepThrough]
-        public static string UrlEncode(this string self)
-        {
-            return HttpUtility.UrlEncode(self);
+            return HttpUtility.UrlEncode(source);
         }
     }
 }

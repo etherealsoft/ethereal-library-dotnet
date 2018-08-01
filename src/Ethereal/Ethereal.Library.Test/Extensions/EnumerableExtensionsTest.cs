@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -10,9 +11,17 @@ namespace Ethereal.Library.Extensions.Test
         #region ForEach<T>
 
         [Test]
-        public void ForEach_Should_Call_Action_On_Each_Enumerable_Element()
+        public void ForEachOfT_When_Source_Is_Null_Should_Throw_ArgumentNullException()
         {
-            var expected = new List<int> { 1, 2 };
+            int[] target = null;
+
+            Assert.Throws<ArgumentNullException>(() => target.ForEach(item => ++item));
+        }
+
+        [Test]
+        public void ForEachOfT_Should_Call_Action_On_Each_Enumerable_Element()
+        {
+            var expected = new int[] { 1, 2 };
             var actual = new List<int>();
 
             expected.ForEach(item => actual.Add(item));

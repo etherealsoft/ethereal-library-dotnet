@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library", "Ethereal.Library\Ethereal.Library.csproj", "{75AD162A-7552-4B7F-98A3-05597FDF5641}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.Implementation", "Ethereal.Library.Implementation\Ethereal.Library.Implementation.csproj", "{693E7195-620B-45F5-92F5-629C6B2519BD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.Implementation.Test", "Ethereal.Library.Implementation.Test\Ethereal.Library.Implementation.Test.csproj", "{57333F39-FF65-417C-B3A4-9AD7B2DCE94A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.DependencyInjection", "Ethereal.Library.DependencyInjection\Ethereal.Library.DependencyInjection.csproj", "{A157A499-2943-4266-8F3F-B6885B2678C0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethereal.Library.Test", "Ethereal.Library.Test\Ethereal.Library.Test.csproj", "{1A1A6268-91F1-4C7B-A665-3A94F49CD353}"
 EndProject
 Global
@@ -25,26 +19,6 @@ Global
 		{75AD162A-7552-4B7F-98A3-05597FDF5641}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75AD162A-7552-4B7F-98A3-05597FDF5641}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75AD162A-7552-4B7F-98A3-05597FDF5641}.Release|Any CPU.Build.0 = Release|Any CPU
-		{693E7195-620B-45F5-92F5-629C6B2519BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{693E7195-620B-45F5-92F5-629C6B2519BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{693E7195-620B-45F5-92F5-629C6B2519BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{693E7195-620B-45F5-92F5-629C6B2519BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57333F39-FF65-417C-B3A4-9AD7B2DCE94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57333F39-FF65-417C-B3A4-9AD7B2DCE94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57333F39-FF65-417C-B3A4-9AD7B2DCE94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57333F39-FF65-417C-B3A4-9AD7B2DCE94A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|x64.ActiveCfg = Debug|x64
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|x64.Build.0 = Debug|x64
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|x86.ActiveCfg = Debug|x86
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Debug|x86.Build.0 = Debug|x86
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x64.ActiveCfg = Release|x64
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x64.Build.0 = Release|x64
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x86.ActiveCfg = Release|x86
-		{A157A499-2943-4266-8F3F-B6885B2678C0}.Release|x86.Build.0 = Release|x86
 		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1A6268-91F1-4C7B-A665-3A94F49CD353}.Release|Any CPU.ActiveCfg = Release|Any CPU

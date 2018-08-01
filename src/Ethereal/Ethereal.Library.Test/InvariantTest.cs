@@ -53,7 +53,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.HasMaxLength("a", MAX_LENGTH, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have length greater than {MAX_LENGTH}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have length greater than {MAX_LENGTH}.", ex.Message);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.HasMaxLength<int>(new List<int> { 1 }, MAX_LENGTH, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have length greater than {MAX_LENGTH}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have length greater than {MAX_LENGTH}.", ex.Message);
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.HasMinLength(string.Empty, MIN_LENGTH, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have length less than {MIN_LENGTH}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have length less than {MIN_LENGTH}.", ex.Message);
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.HasMinLength<int>(new List<int>(), MIN_LENGTH, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have length less than {MIN_LENGTH}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have length less than {MIN_LENGTH}.", ex.Message);
         }
 
         [Test]
@@ -205,7 +205,7 @@ namespace Ethereal.Library.Test
 
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsAtLeast(0, MIN_VALUE, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be less than {MIN_VALUE}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be less than {MIN_VALUE}.", ex.Message);
         }
 
         [Test]
@@ -231,7 +231,7 @@ namespace Ethereal.Library.Test
 
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsAtMost(1, MAX_VALUE, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be greater than {MAX_VALUE}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be greater than {MAX_VALUE}.", ex.Message);
         }
 
         [Test]
@@ -278,7 +278,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsInInterval(-1, MIN_VALUE, MIN_VALUE + 1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be less than {MIN_VALUE}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be less than {MIN_VALUE}.", ex.Message);
         }
 
         [Test]
@@ -313,7 +313,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsInInterval(MAX_VALUE + 1, MAX_VALUE - 1, MAX_VALUE, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be greater than {MAX_VALUE}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be greater than {MAX_VALUE}.", ex.Message);
         }
 
         #endregion
@@ -325,7 +325,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotEmpty(Guid.Empty, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be the empty guid.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be the empty guid.", ex.Message);
         }
 
         [Test]
@@ -344,7 +344,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotEmpty(string.Empty, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be empty.", ex.Message);
         }
 
         [Test]
@@ -371,7 +371,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotInFuture(_currentDate.AddTicks(1), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be in the future.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be in the future.", ex.Message);
         }
 
         [Test]
@@ -402,7 +402,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotInFutureUtc(_currentDate.AddTicks(1), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be in the future.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be in the future.", ex.Message);
         }
 
         [Test]
@@ -433,7 +433,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotInPast(_currentDate.AddTicks(-1), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be in the past.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be in the past.", ex.Message);
         }
 
         [Test]
@@ -464,7 +464,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotInPastUtc(_currentDate.AddTicks(-1), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be in the past.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be in the past.", ex.Message);
         }
 
         [Test]
@@ -498,7 +498,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegative(-1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative value.", ex.Message);
         }
 
         #endregion
@@ -516,7 +516,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegative((long) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative value.", ex.Message);
         }
 
         #endregion
@@ -534,7 +534,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegative((float) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative value.", ex.Message);
         }
 
         #endregion
@@ -552,7 +552,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegative((decimal) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative value.", ex.Message);
         }
 
         #endregion
@@ -571,7 +571,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotNegative(TimeSpan.FromTicks(1).Negate(), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative value.", ex.Message);
         }
 
         #endregion
@@ -589,7 +589,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero(0, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         [Test]
@@ -597,7 +597,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero(-1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         #endregion
@@ -615,7 +615,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((long) 0, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         [Test]
@@ -623,7 +623,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((long) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         #endregion
@@ -641,7 +641,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((float) 0, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         [Test]
@@ -649,7 +649,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((float) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         #endregion
@@ -667,7 +667,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((decimal) 0, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         [Test]
@@ -675,7 +675,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero((decimal) -1, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         #endregion
@@ -693,7 +693,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNegativeOrZero(TimeSpan.Zero, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         [Test]
@@ -702,7 +702,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotNegativeOrZero(TimeSpan.FromTicks(1).Negate(), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not have a negative or zero value.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not have a negative or zero value.", ex.Message);
         }
 
         #endregion
@@ -759,7 +759,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNullOrEmpty(string.Empty, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be an empty string.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be an empty string.", ex.Message);
         }
 
         [Test]
@@ -793,7 +793,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotNullOrEmpty(Enumerable.Empty<int>(), PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be empty.", ex.Message);
         }
 
         [Test]
@@ -820,7 +820,7 @@ namespace Ethereal.Library.Test
             var ex = Assert.Throws<ArgumentException>(
                 () => Invariant.IsNotNullOrWhitespace(string.Empty, PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be empty or whitespace.", ex.Message);
         }
 
         [Test]
@@ -828,33 +828,7 @@ namespace Ethereal.Library.Test
         {
             var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotNullOrWhitespace(" ", PARAMETER_NAME));
 
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
-        }
-
-        #endregion
-
-        #region IsNotWhitespace
-
-        [Test]
-        public void IsNotWhitespace_When_Argument_Is_Null_Should_Not_Throw()
-        {
-            Assert.DoesNotThrow(() => Invariant.IsNotWhitespace(null, PARAMETER_NAME));
-        }
-
-        [Test]
-        public void IsNotWhitespace_When_Argument_Is_Empty_String_Should_Throw_ArgumentException()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotWhitespace(string.Empty, PARAMETER_NAME));
-
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
-        }
-
-        [Test]
-        public void IsNotWhitespace_When_Argument_Is_Whitespace_Should_Throw_ArgumentException()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Invariant.IsNotWhitespace(" ", PARAMETER_NAME));
-
-            Assert.AreEqual($"{PARAMETER_NAME} must not be empty or whitespace.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must not be empty or whitespace.", ex.Message);
         }
 
         #endregion
@@ -914,7 +888,7 @@ namespace Ethereal.Library.Test
         {
             var expression = @"\s+";
             var ex = Assert.Throws<ArgumentException>(() => Invariant.MatchesRegex("a", expression, PARAMETER_NAME));
-            Assert.AreEqual($"{PARAMETER_NAME} must match regular expression {expression}.", ex.Message);
+            Assert.AreEqual($"Argument '{PARAMETER_NAME}' must match regular expression {expression}.", ex.Message);
         }
 
         [Test]
