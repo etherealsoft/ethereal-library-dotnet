@@ -23,4 +23,4 @@ deploy:
     - master
   script:
     - chmod +x ./scripts/deploy.sh
-    - ./scripts.deploy.sh $MYGET_API_KEY
+    - ./scripts/deploy.sh $MYGET_API_KEY
